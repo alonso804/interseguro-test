@@ -4,6 +4,7 @@ import { router } from './infrastructure/controllers';
 import incomeLog from './helpers/middlewares/income-log';
 import { createServer, Server as HttpServer } from 'http';
 import { libSQLClient } from './db/libsql';
+import { logger } from './logger';
 
 export const expressApp = (app: Express): HttpServer => {
   const server = createServer(app);
