@@ -1,0 +1,56 @@
+{
+  "name": "orchestrator",
+  "version": "1.0.0",
+  "description": "orchestrator is a collection of microservices for orchestrator management",
+  "main": "./src/index.ts",
+  "scripts": {
+    "test": "NODE_ENV=test node --import tsx --test \"./__test__/**/*.spec.ts\"",
+    "prebuild": "rimraf ./dist",
+    "build": "node ./esbuild.mjs",
+    "type-check": "tsc",
+    "before-package": "pnpm run type-check && pnpm run build",
+    "dev": "NODE_ENV=local ts-node-dev --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register ./src/index.ts",
+    "start": "NODE_ENV=production node --env-file=.env ./dist/index.mjs",
+    "lint": "tsc --noEmit && eslint \"*/**/*.{js,ts,tsx}\" --quiet --fix"
+  },
+  "keywords": [],
+  "author": "alonso804",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "9.23.0",
+    "@tsconfig/node22": "22.0.1",
+    "@types/bcrypt": "5.0.2",
+    "@types/express": "5.0.1",
+    "@types/jsonwebtoken": "9.0.9",
+    "@types/node": "22.13.14",
+    "esbuild": "0.25.1",
+    "eslint": "9.23.0",
+    "eslint-config-prettier": "10.1.1",
+    "eslint-plugin-prettier": "5.2.5",
+    "globals": "16.0.0",
+    "prettier": "3.5.3",
+    "rimraf": "6.0.1",
+    "ts-node-dev": "2.0.0",
+    "tsconfig-paths": "4.2.0",
+    "tsx": "4.19.3",
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.28.0"
+  },
+  "dependencies": {
+    "@libsql/client": "0.15.1",
+    "@libsql/linux-x64-musl": "0.5.4",
+    "@libsql/win32-x64-msvc": "0.5.4",
+    "awilix": "12.0.5",
+    "axios": "1.8.4",
+    "bcrypt": "6.0.0",
+    "express": "4.21.2",
+    "jsonwebtoken": "9.0.2",
+    "winston": "3.17.0",
+    "zod": "3.24.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
