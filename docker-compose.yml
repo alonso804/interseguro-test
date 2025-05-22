@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  orchestrator:
+    build:
+      context: ./orchestrator
+    ports:
+      - "3000:3000"
+    environment:
+      - MS_OPERATOR_URL=http://ms-food-storage:3000
+      - MS_STATISTICS_URL=http://ms-market:3000
+  ms-operator:
+    build:
+      context: ./ms-rotate
+    ports:
+      - "1939:3000"
+
+  ms-statistics:
+    build:
+      context: ./ms-statistics
+    ports:
+      - "1940:3000"
