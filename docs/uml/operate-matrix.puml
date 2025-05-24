@@ -1,0 +1,42 @@
+@startuml
+header // Interseguro
+skinparam defaultFontName "monospace"
+skinparam sequenceMessageAlign center
+
+title POST /operate-matrix
+actor "User" as User
+participant "orchestrator" as Orchestrator<< (O,#ADD1B2) Orchestrator >>
+participant "ms-operator" as MsOperator<< (M,#ADD1B2) Microservicio >>
+participant "ms-statistics" as MsStatistics<< (M,#ADD1B2) Microservicio >>
+
+activate User
+activate Orchestrator
+
+
+User -> Orchestrator: POST /operate-matrix
+note right of User: Body: {\n  "matrix": number[][]\n}
+
+activate MsOperator
+
+Orchestrator -> MsOperator: POST /operate-matrix
+note right of Orchestrator: Body: { "matrix": number[][] }
+MsOperator --> Orchestrator: Response
+note left of MsOperator: {\n  rotatedMatrix: number[][],\n  qrDecomposition: {\n    Q: number[][],\n    R: number[][]\n  }\n}
+
+destroy MsOperator
+
+activate MsStatistics
+
+Orchestrator -> MsStatistics: POST /get-statistics
+note right of Orchestrator: Body: {\n  rotatedMatrix: number[][],\n  Q: number[][],\n  R: number[][]\n}
+MsStatistics --> Orchestrator: Response
+note left of MsStatistics: {\n  max: number,\n  min: number,\n  average: number,\n  sum: number,\n  isDiagonal: boolean\n}
+
+destroy MsStatistics
+
+Orchestrator --> User: Response
+note left of Orchestrator: {\n  rotatedMatrix: number[][],\n  Q: number[][],\n  R: number[][],\n  max: number,\n  min: number,\n  average: number,\n  sum: number,\n  isDiagonal: boolean\n}
+
+destroy Orchestrator
+
+@enduml

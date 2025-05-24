@@ -7,11 +7,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MS_OPERATOR_URL=http://ms-food-storage:3000
-      - MS_STATISTICS_URL=http://ms-market:3000
+      - MS_OPERATOR_URL=http://ms-operator:3000
+      - MS_STATISTICS_URL=http://ms-statistics:3000
   ms-operator:
     build:
-      context: ./ms-rotate
+      context: ./ms-operator
     ports:
       - "1939:3000"
 

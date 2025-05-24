@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'test') {
 const envVariablesSchema = z.object({
   PORT: z.string().regex(/^\d+$/).default('3000'),
   MS_OPERATOR_URL: z.string().url(),
-  MS_STATISTICS_URL: z.string(),
+  MS_STATISTICS_URL: z.string().url(),
   LIBSQL_DB_URI: z.string().url(),
   LIBSQL_DB_TOKEN: z.string(),
   JWT_SECRET: z.string().min(1),

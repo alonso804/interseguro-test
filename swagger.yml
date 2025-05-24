@@ -1,19 +1,50 @@
 openapi: 3.0.0
 info:
-  title: Matrix API
-  version: 1.0.0
-
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+  description: API de Interseguro
+  version: "1.0.0"
+  title: API de Interseguro
+  
+servers:
+  - url: http://localhost:3000
 
 paths:
-  /matrix:
+  /signup:
     post:
-      summary: Accept a matrix with JWT
+      summary: Registrar un usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+      responses:
+        '200':
+          description: Respuesta del registro
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+                
+  /login:
+    post:
+      summary: Inicio de sesión de usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Respuesta del inicio de sesión
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+                
+  /operate-matrix:
+    post:
+      summary: Realizar operaciones con una matriz
       security:
         - bearerAuth: []
       requestBody:
@@ -21,14 +52,83 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                type: array
-                items:
-                  type: number
+              $ref: '#/components/schemas/OperationMatrixRequest'
       responses:
         '200':
-          description: Matrix received successfully
+          description: Respuesta de operar una matriz
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationMatrixResponse'
+          
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        email:
+          type: string
+        token:
+          type: string
+    SignupRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: number
+        password:
+          type: number
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: number
+    OperationMatrixRequest:
+      type: object
+      properties:
+        matrix:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+    OperationMatrixResponse:
+      type: object
+      properties:
+        rotatedMatrix:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+        Q:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+        R:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+        min:
+          type: number
+        max:
+          type: number
+        average:
+          type: number
+        sum:
+          type: number
+        isDiagonal:
+          type: boolean
 
-security:
-  - bearerAuth: []

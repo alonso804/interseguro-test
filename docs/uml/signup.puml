@@ -1,0 +1,29 @@
+@startuml
+header // Interseguro
+skinparam defaultFontName "monospace"
+skinparam sequenceMessageAlign center
+
+title POST /signup
+actor "User" as User
+participant "orchestrator" as Orchestrator<< (O,#ADD1B2) Orchestrator >>
+database "Turso DB" as TursoDB<< (M,#ADD1B2) LibSQL >>
+
+activate Orchestrator
+
+User -> Orchestrator: POST /signup
+note right of User: Body: {\n  "email": string,\n  "name": string,\n  "password": string\n}
+
+activate TursoDB
+
+Orchestrator -> Orchestrator: Hash password
+Orchestrator -> TursoDB: INSERT
+
+destroy TursoDB
+
+Orchestrator -> Orchestrator: Create JWT
+Orchestrator --> User: Response
+note left of Orchestrator: {\n  "email": string,\n  "token": string\n}
+
+destroy Orchestrator
+
+@enduml

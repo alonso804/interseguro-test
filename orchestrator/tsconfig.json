@@ -5,7 +5,8 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts", "__test__/**/*.ts"],
+  "include": ["src/**/*.ts", "__test__/**/*.ts", "src/swagger.mjs"],
   "exclude": ["node_modules"],
 }

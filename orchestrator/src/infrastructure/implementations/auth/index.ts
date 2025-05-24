@@ -7,7 +7,7 @@ import {
 import { SQLError } from 'src/errors/http/sql';
 import { STATUS_CODE } from 'src/helpers/constants/http';
 import { LoggerFactory } from 'src/helpers/utils/logger/factory';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { TABLE } from 'src/db/libsql/helpers';
 
 const SALT_ROUNDS = 10;
@@ -66,14 +66,6 @@ export class LibSQLAuthRepository implements AuthRepository {
 
   async loginUser(payload: LoginUserPayload): Promise<boolean> {
     try {
-      // console.log(payload);
-      // const query = `
-      //     SELECT a.password,
-      //     FROM ${TABLE.USERS} u
-      //     JOIN ${TABLE.AUTH} a ON u.id = a.user_id
-      //     WHERE u.email = ?
-      //   `;
-      // console.log(query);
       const result = await this.#client.execute(
         `
           SELECT a.password
