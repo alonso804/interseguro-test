@@ -96,7 +96,7 @@ En esta arquitectura se busca separar la aplicación en 3 capas:
 
 **Request:**
 
-```json
+```typescript
 {
   "matrix": number[][]
 }
@@ -104,7 +104,7 @@ En esta arquitectura se busca separar la aplicación en 3 capas:
 
 **Response:**
 
-```json
+```typescript
 {
   "rotatedMatrix": number[][],
   "Q": number[][],
@@ -129,7 +129,7 @@ En esta arquitectura se busca separar la aplicación en 3 capas:
 
 **Request:**
 
-```json
+```typescript
 {
   "email": "string",
   "name": "string",
@@ -139,7 +139,7 @@ En esta arquitectura se busca separar la aplicación en 3 capas:
 
 **Response:**
 
-```json
+```typescript
 {
   "email": "string",
   "token": "string"
@@ -158,7 +158,7 @@ En esta arquitectura se busca separar la aplicación en 3 capas:
 
 **Request:**
 
-```json
+```typescript
 {
   "email": "string",
   "password": "string"
@@ -167,10 +167,10 @@ En esta arquitectura se busca separar la aplicación en 3 capas:
 
 **Response:**
 
-```json
+```typescript
 {
   "email": "string",
-  "token": "string
+  "token": "string"
 }
 ```
 
